@@ -1,0 +1,27 @@
+---
+interface Props {
+    title: string;
+    description: string;
+    imageUrl?: string;
+    projectUrl?: string;
+}
+
+const { title = "Project Title", description = "Placeholder description for the project. Replace this with actual details.", imageUrl, projectUrl } = Astro.props;
+
+const CardWrapper = projectUrl ? 'a' : 'div';
+const cardProps = projectUrl ? { href: projectUrl, target: "_blank", rel: "noopener noreferrer" } : {};
+---
+
+<CardWrapper {...cardProps} class="block bg-slate-800 rounded-lg overflow-hidden shadow-lg hover:shadow-cyan-500/30 transition-shadow duration-300">
+    {imageUrl ? (
+        <img src={imageUrl} alt={title} class="w-full h-48 object-cover bg-slate-700" />
+    ) : (
+        <div class="w-full h-48 bg-slate-700 flex items-center justify-center text-slate-500">
+            [Image Placeholder]
+        </div>
+    )}
+    <div class="p-6">
+        <h3 class="text-xl font-semibold mb-2 text-slate-100">{title}</h3>
+        <p class="text-slate-400 text-sm">{description}</p>
+    </div>
+</CardWrapper>
